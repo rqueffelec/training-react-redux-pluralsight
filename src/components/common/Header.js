@@ -1,6 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+/*
+Cory's challenge: Author administration
+Added an Authors navigation link
+*/
 const Header = () => {
   const activeStyle = { color: "#F15B2A" };
 
@@ -12,6 +16,10 @@ const Header = () => {
       {" | "}
       <NavLink to="/courses" activeStyle={activeStyle}>
         Courses
+      </NavLink>
+      {" | "}
+      <NavLink to="/authors" activeStyle={activeStyle}>
+        Authors
       </NavLink>
       {" | "}
       <NavLink to="/about" activeStyle={activeStyle}>
