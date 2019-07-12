@@ -84,9 +84,19 @@ const newCourse = {
   category: ""
 };
 
+/*
+Cory's challenge: Author administration
+Added the newAuthor default init and added it to the exports for external use.
+*/
+const newAuthor = {
+  id: null,
+  name: ""
+};
+
 // Using CommonJS style export so we can consume via Node (without using Babel-node)
 module.exports = {
   newCourse,
+  newAuthor,
   courses,
   authors
 };

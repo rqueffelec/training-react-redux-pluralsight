@@ -6,9 +6,15 @@ import Header from "./common/Header";
 import PageNotFound from "./PageNotFound";
 import CoursesPage from "./courses/CoursesPage";
 import ManageCoursePage from "./courses/ManageCoursePage"; //eslint-disable-line import/no-named-as-default
+import AuthorsPage from "./authors/AuthorsPage";
+import ManageAuthorPage from "./authors/ManageAuthorPage"; //eslint-disable-line import/no-named-as-default
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+/*
+Cory's challenge: Author administration
+Added the required routes for authors management
+*/
 function App() {
   return (
     <div className="container-fluid">
@@ -19,6 +25,9 @@ function App() {
         <Route path="/courses" component={CoursesPage} />
         <Route path="/course/:slug" component={ManageCoursePage} />
         <Route path="/course" component={ManageCoursePage} />
+        <Route path="/authors" component={AuthorsPage} />
+        <Route path="/author/:id" component={ManageAuthorPage} />
+        <Route path="/author" component={ManageAuthorPage} />
         <Route component={PageNotFound} />
       </Switch>
       <ToastContainer autoClose={3000} hideProgressBar />
