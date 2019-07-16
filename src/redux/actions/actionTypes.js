@@ -5,6 +5,12 @@ export const UPDATE_COURSE_SUCCESS = "UPDATE_COURSE_SUCCESS";
 export const BEGIN_API_CALL = "BEGIN_API_CALL";
 export const API_CALL_ERROR = "API_CALL_ERROR";
 
+/*
+Cory's challenge: Filter course list
+Added the required action types related to the course list filtering
+*/
+export const FILTER_COURSES_SUCCESS = "FILTER_COURSES_SUCCESS";
+
 // By convention, actions that end in "_SUCCESS" are assumed to have been the result of a completed
 // API call. But since we're doing an optimistic delete, we're hiding loading state.
 // So this action name deliberately omits the "_SUCCESS" suffix.
