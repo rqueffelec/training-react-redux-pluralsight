@@ -7,6 +7,8 @@ import CourseForm from "./CourseForm";
 import { newCourse } from "../../../tools/mockData";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
+import { Prompt } from "react-router-dom";
+import { isEqual } from "underscore";
 
 export function ManageCoursePage({
   courses,
@@ -41,7 +43,7 @@ export function ManageCoursePage({
     const { name, value } = event.target;
     setCourse(prevCourse => ({
       ...prevCourse,
-      [name]: name === "authorId" ? parseInt(value, 10) : value
+      [name]: name === "authorId" ? (value ? parseInt(value, 10) : null) : value
     }));
   }
 
@@ -73,17 +75,28 @@ export function ManageCoursePage({
       });
   }
 
+  /*
+  Cory's challenge: Unsaved changes message
+  Added a prompt to see any changes applied to the course. If changes have been made 
+  or we are not in the saving process the message will be prompted to the user.
+  */
   return authors.length === 0 || courses.length === 0 ? (
     <Spinner />
   ) : (
-    <CourseForm
-      course={course}
-      errors={errors}
-      authors={authors}
-      onChange={handleChange}
-      onSave={handleSave}
-      saving={saving}
-    />
+    <>
+      <Prompt
+        when={!isEqual(course, props.course) && !saving}
+        message="You have unsaved changes. Are you sure you want to leave this page?"
+      />
+      <CourseForm
+        course={course}
+        errors={errors}
+        authors={authors}
+        onChange={handleChange}
+        onSave={handleSave}
+        saving={saving}
+      />
+    </>
   );
 }
 
