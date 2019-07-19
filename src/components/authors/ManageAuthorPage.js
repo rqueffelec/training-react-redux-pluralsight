@@ -8,6 +8,7 @@ import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 import { Prompt } from "react-router-dom";
 import { isEqual } from "underscore";
+import * as formHelper from "../../helper/formHelper";
 
 /*
 Cory's challenge: Author administration
@@ -42,11 +43,23 @@ export function ManageAuthorPage({
     }));
   }
 
+  /*
+  Cory's challenge: Enhance validation.
+  Added length and regex checks for the name, as well as using the common formHelper input validation.
+  */
   function formIsValid() {
     const { name } = author;
     const errors = {};
 
-    if (!name) errors.name = "Name is required.";
+    formHelper.inputValidation(
+      "Name",
+      name,
+      errors,
+      true,
+      3,
+      40,
+      /[^a-zA-Z\- ]/i
+    );
 
     setErrors(errors);
     //Form is valid if the errors object still has no properties
