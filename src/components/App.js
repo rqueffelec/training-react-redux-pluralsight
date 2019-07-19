@@ -15,6 +15,10 @@ import "react-toastify/dist/ReactToastify.css";
 Cory's challenge: Author administration
 Added the required routes for authors management
 */
+/*
+Cory's challenge: Handle 404 for item not found.
+Added the /notfound routing. 
+*/
 function App() {
   return (
     <div className="container-fluid">
@@ -28,6 +32,7 @@ function App() {
         <Route path="/authors" component={AuthorsPage} />
         <Route path="/author/:id" component={ManageAuthorPage} />
         <Route path="/author" component={ManageAuthorPage} />
+        <Route path="/notfound" component={PageNotFound} />
         <Route component={PageNotFound} />
       </Switch>
       <ToastContainer autoClose={3000} hideProgressBar />

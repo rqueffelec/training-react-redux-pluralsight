@@ -7,13 +7,18 @@ import CourseForm from "./CourseForm";
 import { newCourse } from "../../../tools/mockData";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
-import { Prompt } from "react-router-dom";
+import { Prompt, Redirect } from "react-router-dom";
 import { isEqual } from "underscore";
 import * as formHelper from "../../helper/formHelper";
 
+/*
+Cory's challenge: Handle 404 for item not found.
+Added the boolean notFound prop.
+*/
 export function ManageCoursePage({
   courses,
   authors,
+  notFound,
   loadCourses,
   loadAuthors,
   saveCourse,
@@ -101,30 +106,47 @@ export function ManageCoursePage({
   Added a prompt to see any changes applied to the course. If changes have been made 
   or we are not in the saving process the message will be prompted to the user.
   */
-  return authors.length === 0 || courses.length === 0 ? (
-    <Spinner />
-  ) : (
+  /*
+  Cory's challenge: Handle 404 for item not found.
+  Added a test case to check if we have a notFound item and redirecting to the not 
+  found page if it's the case.
+  */
+  return (
     <>
-      <Prompt
-        when={!isEqual(course, props.course) && !saving}
-        message="You have unsaved changes. Are you sure you want to leave this page?"
-      />
-      <CourseForm
-        course={course}
-        errors={errors}
-        authors={authors}
-        onChange={handleChange}
-        onSave={handleSave}
-        saving={saving}
-      />
+      {notFound && <Redirect to="/notfound" />}
+      {authors.length === 0 || courses.length === 0 ? (
+        <Spinner />
+      ) : (
+        <>
+          <Prompt
+            when={!isEqual(course, props.course) && !saving}
+            message="You have unsaved changes. Are you sure you want to leave this page?"
+          />
+          <CourseForm
+            course={course}
+            errors={errors}
+            authors={authors}
+            onChange={handleChange}
+            onSave={handleSave}
+            saving={saving}
+          />
+        </>
+      )}
     </>
   );
 }
 
+/*
+Cory's challenge: Handle 404 for item not found.
+Added the boolean notFound prop.
+Removed the isRequired rule from the course prop in the 
+event of none being found or created.
+*/
 ManageCoursePage.propTypes = {
-  course: PropTypes.object.isRequired,
+  course: PropTypes.object,
   authors: PropTypes.array.isRequired,
   courses: PropTypes.array.isRequired,
+  notFound: PropTypes.bool.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
   saveCourse: PropTypes.func.isRequired,
@@ -135,16 +157,22 @@ export function getCourseBySlug(courses, slug) {
   return courses.find(course => course.slug === slug) || null;
 }
 
+/*
+Cory's challenge: Handle 404 for item not found.
+Added the boolean notFound prop and initializing it to the correct value.
+*/
 function mapStateToProps(state, ownProps) {
   const slug = ownProps.match.params.slug;
   const course =
     slug && state.courses.length > 0
       ? getCourseBySlug(state.courses, slug)
       : newCourse;
+  const notFound = (slug && state.courses.length > 0 && !course) || false;
   return {
     course,
     courses: state.courses,
-    authors: state.authors
+    authors: state.authors,
+    notFound
   };
 }
 
