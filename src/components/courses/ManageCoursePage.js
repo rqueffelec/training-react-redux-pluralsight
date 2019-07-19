@@ -9,6 +9,7 @@ import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 import { Prompt } from "react-router-dom";
 import { isEqual } from "underscore";
+import * as formHelper from "../../helper/formHelper";
 
 export function ManageCoursePage({
   courses,
@@ -51,9 +52,29 @@ export function ManageCoursePage({
     const { title, authorId, category } = course;
     const errors = {};
 
-    if (!title) errors.title = "Title is required.";
-    if (!authorId) errors.author = "Author is required.";
-    if (!category) errors.category = "Category is required.";
+    /*
+    Cory's challenge: Enhance validation.
+    Added length and regex checks for the title and category, as well as using the common formHelper input validation.
+    */
+    formHelper.inputValidation(
+      "Title",
+      title,
+      errors,
+      true,
+      3,
+      50,
+      /[^a-zA-Z0-9:\-!?., ]/i
+    );
+    formHelper.inputValidation("Author", authorId, errors, true);
+    formHelper.inputValidation(
+      "Category",
+      category,
+      errors,
+      true,
+      3,
+      25,
+      /[^a-zA-Z0-9 ]/i
+    );
 
     setErrors(errors);
     //Form is valid if the errors object still has no properties
