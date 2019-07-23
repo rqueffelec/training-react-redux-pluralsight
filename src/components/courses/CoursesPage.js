@@ -11,9 +11,16 @@ import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
 import CourseFilter from "./CourseFilter";
 
+/*
+Cory's challenge: Pagination.
+Added the pagination default items and initialized the page state.
+*/
+const ITEMS_PER_PAGE = 5;
+
 class CoursesPage extends React.Component {
   state = {
-    redirectToAddCoursePage: false
+    redirectToAddCoursePage: false,
+    page: 0
   };
 
   componentDidMount() {
@@ -49,8 +56,24 @@ class CoursesPage extends React.Component {
   };
 
   /*
+  Cory's challenge: Pagination.
+  Handling the pagination actions.
+  */
+  handlePrevious = () => {
+    this.setState({ page: this.state.page - 1 });
+  };
+
+  handleNext = () => {
+    this.setState({ page: this.state.page + 1 });
+  };
+
+  /*
   Cory's challenge: Filter course list
   Added the CourseFilter component and filtering the course list 
+  */
+  /*
+  Cory's challenge: Pagination.
+  Added the pagination props to the CourseList component.
   */
   render() {
     return (
@@ -82,6 +105,10 @@ class CoursesPage extends React.Component {
                   .toLowerCase()
                   .includes(this.props.filter.toLowerCase())
               )}
+              page={this.state.page}
+              items={ITEMS_PER_PAGE}
+              onPreviousClick={this.handlePrevious}
+              onNextClick={this.handleNext}
             />
           </>
         )}
