@@ -1,0 +1,6 @@
+projectKey=training:training-react-redux-pluralsight
+serverUrl=http://192.168.56.1:9000
+serverVersion=7.9.2.30863
+dashboardUrl=http://192.168.56.1:9000/dashboard?id=training%3Atraining-react-redux-pluralsight
+ceTaskId=AXJeaac-qmFqPq0ooNAH
+ceTaskUrl=http://192.168.56.1:9000/api/ce/task?id=AXJeaac-qmFqPq0ooNAH
